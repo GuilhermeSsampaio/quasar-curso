@@ -34,7 +34,7 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
-import useAuthUser from 'src/composables/UseAuthUser'
+import useAuthUser from 'src/composables/useAuthUser'
 import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 
