@@ -37,6 +37,12 @@ export default defineRouter(function (/* { store, ssrContext } */) {
   Router.beforeEach((to) => {
     const { isLoggedIn } = useAuthUser()
 
+    if (to.hash.includes('type=recovery') && to.name !== 'reset-password') {
+      const accessToken = to.hash.split('&')[0]
+      const token = accessToken.replace('#acces_token', '')
+      return { name: 'reset-password', query: { token } }
+    }
+
     if (!isLoggedIn() && to.meta.requiresAuth && !Object.keys(to.query).includes('fromEmail')) {
       return {
         name: 'login',

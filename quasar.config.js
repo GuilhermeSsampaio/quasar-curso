@@ -45,7 +45,11 @@ export default defineConfig(() => {
     build: {
       // publicPath: '/',
       vueRouterMode: 'history', // available values: 'hash', 'history'
-
+      env: {
+        SUPABASE_KEY:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlleHlhemZ6bG90dmJraW9jZnd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc2NjExNTEsImV4cCI6MjA1MzIzNzE1MX0.rQ1tKwWaV0EAQw_NU51z6S85_9kXojVkZnGCBU7Z3dQ',
+        SUPABASE_URL: 'https://yexyazfzlotvbkiocfwt.supabase.co',
+      },
       // webpackTranspile: false,
 
       // Add dependencies for transpiling with Babel (Array of string/regex)
@@ -109,7 +113,7 @@ export default defineConfig(() => {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['Dialog'],
+      plugins: ['Dialog', 'Notify'],
     },
 
     // animations: 'all', // --- includes all animations

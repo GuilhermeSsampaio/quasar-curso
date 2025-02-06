@@ -3,14 +3,39 @@
     <q-form class="row justify-center" @submit.prevent="handleRegister">
       <p class="col-12 text-h5 text-center">Register</p>
       <div class="col-md-4 col-sm-6 col-xs-10 q-gutter-y-md">
-        <q-input label="Name" v-model="form.name" />
+        <q-input
+          label="Name"
+          v-model="form.name"
+          lazy-rules
+          :rules="[(val) => (val && val.length > 0) || 'Name is required']"
+        />
 
-        <q-input label="Email" v-model="form.email" />
+        <q-input
+          label="Email"
+          v-model="form.email"
+          lazy-rules
+          :rules="[(val) => (val && val.length > 0) || 'Email is required']"
+          type="email"
+        />
 
-        <q-input label="Password" v-model="form.password" />
+        <q-input
+          label="Password"
+          v-model="form.password"
+          lazy-rules
+          :rules="[(val) => (val && val.length >= 6) || 'Password is required and 6 characters']"
+        />
       </div>
-      <div class="full-width q-pt-md">
+      <div class="full-width q-pt-md q-gutter-y-sm">
         <q-btn label="Register" color="primary" class="full-width" outline rounded type="submit" />
+        <q-btn
+          label="Back"
+          color="dark"
+          class="full-width"
+          outline
+          rounded
+          flat
+          :to="{ name: 'login' }"
+        />
       </div>
     </q-form>
   </q-page>
@@ -18,8 +43,9 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
-import useAuthUser from 'src/composables/UseAuthUser'
+import useAuthUser from 'src/composables/useAuthUser'
 import { useRouter } from 'vue-router'
+import useNotify from 'src/composables/UseNotify'
 
 export default defineComponent({
   name: 'PageRegister',
@@ -28,6 +54,7 @@ export default defineComponent({
     const router = useRouter()
 
     const { register } = useAuthUser()
+    const { notifyError, notifySucces } = useNotify()
 
     const form = ref({
       name: '',
@@ -38,12 +65,13 @@ export default defineComponent({
     const handleRegister = async () => {
       try {
         await register(form.value)
+        notifySucces()
         router.push({
           name: 'email-confirmation',
           query: { email: form.value.email },
         })
       } catch (error) {
-        alert(error.message)
+        notifyError(error.message)
       }
     }
 

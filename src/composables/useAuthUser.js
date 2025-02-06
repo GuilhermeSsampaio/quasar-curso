@@ -1,8 +1,7 @@
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import useSupabase from 'src/boot/supabase'
 
 const user = ref(null)
-
 export default function useAuthUser() {
   const { supabase } = useSupabase()
 
@@ -51,17 +50,27 @@ export default function useAuthUser() {
     return updatedUser
   }
 
-  watch(user, (newUser) => {
-    console.log('User updated:', newUser)
-  })
+  const sendPasswordRestEmail = async (email) => {
+    const { user, error } = await supabase.auth.resetPasswordForEmail(email)
+    if (error) throw error
+    return user
+  }
+
+  const resetPassword = async (accessToken, newPassword) => {
+    const { user, error } = await supabase.auth.updateUser({ password: newPassword })
+    if (error) throw error
+    return user
+  }
 
   return {
     user,
     login,
     loginWithSocialProvider,
-    register,
     logout,
     isLoggedIn,
+    register,
     update,
+    sendPasswordRestEmail,
+    resetPassword,
   }
 }
