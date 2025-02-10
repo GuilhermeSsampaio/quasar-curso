@@ -30,7 +30,7 @@ export default defineConfig(() => {
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
       // 'ionicons-v4',
-      // 'mdi-v7',
+      'mdi-v5',
       // 'fontawesome-v6',
       // 'eva-icons',
       // 'themify',
@@ -113,7 +113,7 @@ export default defineConfig(() => {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['Dialog', 'Notify'],
+      plugins: ['Dialog', 'Notify', 'Loading'],
     },
 
     // animations: 'all', // --- includes all animations

@@ -21,12 +21,44 @@ const routes = [
         name: 'reset-password',
         component: () => import('pages/ResetPassword.vue'),
       },
+      {
+        path: 'product-public/:id',
+        name: 'product-public',
+        component: () => import('pages/product/Public.vue'),
+      },
     ],
   },
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: 'me', name: 'me', component: () => import('pages/Me.vue') }],
+    children: [
+      { path: 'me', name: 'me', component: () => import('pages/Me.vue') },
+      {
+        path: 'category',
+        name: 'category',
+        component: () => import('src/pages/category/ListPage.vue'),
+      },
+      {
+        path: 'form-category/:id?',
+        name: 'form-category',
+        component: () => import('src/pages/category/FormPage.vue'),
+      },
+      {
+        path: 'product',
+        name: 'product',
+        component: () => import('src/pages/product/ListPage.vue'),
+      },
+      {
+        path: 'form-product/:id?',
+        name: 'form-product',
+        component: () => import('src/pages/product/FormPage.vue'),
+      },
+      {
+        path: 'form-config/:id?',
+        name: 'form-config',
+        component: () => import('src/pages/config/FormPage.vue'),
+      },
+    ],
     meta: {
       requiresAuth: true,
     },
